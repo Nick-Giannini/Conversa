@@ -1,42 +1,66 @@
-<h1>Chat</h1>
-    <div class="app">
-        <div class="chat_app">
-            <div id="sidebar" class="left_sidebar">
-                <div class="logo_text">
-                    <span>Chat <span class="colored">App</span></span>
-                </div>
+<main class="content">
+    <div class="container p-0 ">
 
+        <h1 id="conversaHeader" class="logo flex-center mb-3">Conversa chat</h1>
+
+        <div class="card">
+            <div class="row g-0">
+                <div id="active_users_list"  class="col-12 col-lg-5 col-xl-3 border-right">
                 <span class="user_label">Users</span>
-                <div id="active_users_list" class="active_users_list"></div>
-            </div>
+                    <a href="#" id="active_users_list" class="list-group-item list-group-item-action border-0">
+                        <div class="d-flex align-items-start">
 
-            <div class="chat_area">
-                <div class="chat_bg">
-                    <div id="chat" class="chat"></div>
+                            <!-- user name -->
+                            <div class="flex-grow-1 ml-3"></div>
+                        </div>
+                    </a>
 
-                    <div class="chat_input">
-                        <input type="text" id="messageInput" placeholder="Enter message" />
-                        <button id="send_message_btn" class="send_message_btn" id="send">
-                            SEND
-                        </button>
-                    </div>
+                    <hr class="d-block d-lg-none mt-1 mb-0">
+
                 </div>
-            </div>
 
-            <div class="right_sidebar">
-                <span class="room_label">Rooms</span>
-                <div id="active_rooms_list" class="active_rooms_list"></div>
 
-                <div class="room_input">
-                    <input type="text" id="roomInput" placeholder="Create room" />
-                    <button id="room_add_icon_holder" class="room_add_icon_holder">
-                        +
-                    </button>
+                <!-- chat container -->
+                <div class="col-12 col-lg-7 col-xl-9">
+                    <div class="py-2 px-4 border-bottom d-none d-lg-block">
+                        <!-- ACTIVE USER HEADER TO CHAT -->
+                        <div id="activeChatHeader" class="d-flex align-items-center py-1">
+                            <div class="flex-grow-1 pl-3">
+                                <strong></strong>
+                                {{!-- typing response --}}
+                                <div class="text-muted small"><em>Typing...</em></div>
+                            </div>
+                            {{!-- logout button --}}
+                            <div>
+                                <button id="logoutBtn" class="btn btn-light border btn-sm px-3">Logout</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="position-relative">
+                        <div id="chat" class="chat-messages p-4">
+
+                        </div>
+                    </div>
+
+                    {{!-- chat input and send button --}}
+                    <div class="flex-grow-0 py-3 px-4 border-top">
+                        <div class="input-group">
+                            {{!-- text input --}}
+                            <input id="messageInput" type="text" class="form-control" placeholder="Type your message">
+                            {{!-- send button --}}
+                            <button id="send_message_btn" id="send" class="btn btn-primary">Send</button>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.3/socket.io.js"
-    integrity="sha512-PU5S6BA03fRv1Q5fpwXjg5nlRrgdoguZ74urFInkbABMCENyx5oP3hrDzYMMPh3qdLdknIvrGj3yqZ4JuU7Nag=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.3/socket.io.js"
+        integrity="sha512-PU5S6BA03fRv1Q5fpwXjg5nlRrgdoguZ74urFInkbABMCENyx5oP3hrDzYMMPh3qdLdknIvrGj3yqZ4JuU7Nag=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="/js/chat.js"></script>
+
+</main>
