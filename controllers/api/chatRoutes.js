@@ -12,18 +12,13 @@ router.get('/:id', async (req, res) => {
         const roomData = await Room.findByPk(req.params.id, {
             include:[{model:User, through:Messages}],
         });
-        
+
         console.log(roomData);
         res.json(roomData)
-     
 
-//         console.log(roomData);
-//         res.json(roomData)
-
-
-//     } catch (err) {
-//         res.status(400).json(err);
-//     }
-// });
+    } catch (err) {
+        res.status(400).json(err);
+    }
+});
 
 module.exports = router;
