@@ -7,6 +7,8 @@ const {Messages, User, Room} = require('../../models')
 //         const roomData = await Room.findByPk(req.params.id, {
 //             include:[{model:User, through:Messages}],
 //         });
+
+
 router.get('/:id', async (req, res) => {
     try {
         const roomData = await Room.findByPk(req.params.id, {

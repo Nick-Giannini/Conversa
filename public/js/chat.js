@@ -19,7 +19,7 @@ socket.on("connect", function () {
         method: 'GET',
     }).then((res) => res.json())
         .then((response) => {
-
+            myUsername=response;
             socket.emit("createUser", response);
         });
 
@@ -46,6 +46,17 @@ createRoomBtn.addEventListener("click", function () {
         socket.emit("createRoom", roomName);
         roomInput.value = "";
     }
+
+    roomlist.innerHTML +=( `<div class="room_card" id="${roomName}"
+                                onclick="changeRoom('${roomName}')">
+                                <div class="room_item_content">
+                                    <div class="pic"></div>
+                                    <div class="roomInfo">
+                                    <span class="room_name">#${roomName}</span>
+                                    </div>
+                                </div>
+                            </div>`);
+
 });
 
 socket.on("updateChat", function (username, data) {
@@ -90,7 +101,7 @@ socket.on("updateRooms", function (rooms, newRoom) {
                                     <div class="pic"></div>
                                     <div class="roomInfo">
                                     <span class="room_name">#${rooms[index].name}</span>
-                                    <span class="room_author">${rooms[index].creator}</span>
+                                    <span class="room_author">${rooms[index].description}</span>
                                     </div>
                                 </div>
                             </div>`;
