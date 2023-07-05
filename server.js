@@ -8,7 +8,7 @@ const app = express();
 
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
-const {Messages} = require('./models/');
+const { Messages, Room } = require('./models/');
 
 
 const sequelize = require('./config/connection');
