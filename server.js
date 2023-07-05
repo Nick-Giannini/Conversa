@@ -75,11 +75,14 @@ io.on("connection", function (socket) {
     io.sockets.to(socket.currentRoom).emit("updateChat", socket.username, data);
   });
 
-  socket.on("createRoom", function (room) {
+  socket.on("createRoom", async function (room) {
     if (room != null) {
-      rooms.push({ name: room, creator: socket.username });
-      // run Room.create({ name: room, creator: socket.username })
-      io.sockets.emit("updateRooms", rooms, null);
+      rooms.push({ name: room, description: socket.username });
+      await Room.create({ name: room, description: socket.username })
+      const updatedRooms = await Room.findAll({ raw: true });
+
+
+      io.sockets.emit("updateRooms", updatedRooms, null);
     }
   });
 
