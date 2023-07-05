@@ -45,8 +45,8 @@ app.use(routes);
 
 var usernames = {};
 var rooms = [
-  { name: "global", creator: "Anonymous" },
-  { name: "chess", creator: "Anonymous" },
+  { name: "global", description: "Anonymous" },
+  { name: "chess", description: "Anonymous" },
 ];
 
 
@@ -55,7 +55,7 @@ io.on("connection", function (socket) {
   console.log(`User connected to server.`);
 
 
-  socket.on("createUser", function (username) {
+  socket.on("createUser", async function (username) {
     socket.username = username;
     usernames[username] = username;
     socket.currentRoom = "global";
@@ -68,7 +68,9 @@ io.on("connection", function (socket) {
       .to("global")
       .emit("updateChat", "INFO", username + " has joined global room");
     io.sockets.emit("updateUsers", usernames);
-    socket.emit("updateRooms", rooms, "global");
+    const updatedRooms = await Room.findAll({ raw: true });
+
+    socket.emit("updateRooms", updatedRooms, "global");
   });
 
   socket.on("sendMessage", function (data) {
@@ -93,7 +95,6 @@ io.on("connection", function (socket) {
     socket.leave(socket.currentRoom);
     socket.currentRoom = room;
     socket.join(room);
-    // emit message updating the room
     socket.emit("updateChat", "INFO", "You have joined " + room + " room");
     socket.broadcast
       .to(room)
@@ -115,9 +116,6 @@ io.on("connection", function (socket) {
     );
   });
 });
-
-
-
 
 
 sequelize.sync({ force: false }).then(() => {
